@@ -4,7 +4,7 @@ import {Observable} from 'rxjs';
 import {environment} from '../../environments/environment';
 
 const SERVER_URL = environment.serverUrl;
-const TEAM_URL = environment.sportUrl;
+const TEAM_URL = environment.teamUrl;
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +15,7 @@ export class TeamService {
   }
 
   getAllTeams(): Observable<any> {
-    return this.http.get(SERVER_URL + TEAM_URL + 'all');
+    return this.http.get(SERVER_URL + TEAM_URL + '/all');
   }
 
 }

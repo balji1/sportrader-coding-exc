@@ -16,7 +16,7 @@ export class EventService {
   }
 
   getAllEvents(): Observable<any> {
-    return this.http.get(SERVER_URL + EVENT_URL + 'all');
+    return this.http.get(SERVER_URL + EVENT_URL + '/all');
   }
 
   getBySport(sportName: string): Observable<any> {

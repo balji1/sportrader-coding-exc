@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
 import {EventService} from './service/event.service';
 import {SportService} from './service/sport.service';
 import {TeamService} from './service/team.service';
@@ -24,7 +24,9 @@ export class AppComponent {
     this.eventService.getAllEvents().subscribe(value => {
       value.forEach(data => {
         this.events.push(data);
-      }, console.log('Error while retrieving events'));
+      }, error => {
+        console.log('Error while retrieving events');
+      });
     });
   }
 
@@ -32,7 +34,9 @@ export class AppComponent {
     this.teamService.getAllTeams().subscribe(value => {
       value.forEach(data => {
         this.teams.push(data);
-      }, console.log('Error while retrieving teams'));
+      }, error => {
+        console.log('Error while retrieving teams');
+      });
     });
   }
 
@@ -40,7 +44,9 @@ export class AppComponent {
     this.sportService.getAllSports().subscribe(value => {
       value.forEach(data => {
         this.sports.push(data);
-      }, console.log('Error while retrieving sports'));
+      }, error => {
+        console.log('Error while retrieving sports');
+      });
     });
   }
 
