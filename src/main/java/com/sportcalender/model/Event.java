@@ -18,13 +18,13 @@ public class Event {
     private Long id;
     private String eventName;
     private Date date;
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne
     @JoinColumn(name = "_sport_id", referencedColumnName = "id")
     private Sport sport;
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne
     @JoinColumn(name = "_team_one")
     private Team _teamOne;
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne
     @JoinColumn(name = "_team_two")
     private Team _teamTwo;
 }
