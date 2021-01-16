@@ -16,12 +16,7 @@ import java.util.Date;
 public class SportCalenderApplication {
 
     public static void main(String[] args) {
-        ConfigurableApplicationContext configurableApplicationContext = SpringApplication.run(SportCalenderApplication.class, args);
-
-//        SportRepository sportRepository = configurableApplicationContext.getBean(SportRepository.class);
-//        Sport spport = new Sport();
-//        spport.setName("new Sport");
-//        sportRepository.save(spport);
+        SpringApplication.run(SportCalenderApplication.class, args);
     }
 
 }
