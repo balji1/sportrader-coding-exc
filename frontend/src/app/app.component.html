@@ -1,1 +1,5 @@
-Hallo
+<button (click)="getAllSports()">Get Sports</button>
+<div class="sport" *ngFor="let sport of sports">
+  <h5>{{sport.sportName}}</h5>
+</div>
+
