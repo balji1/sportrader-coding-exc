@@ -1,6 +1,7 @@
 package com.sportcalender.service;
 
 import com.sportcalender.model.Event;
+import com.sportcalender.model.Sport;
 import com.sportcalender.repository.EventRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -33,6 +34,16 @@ public class EventService {
     @Transactional
     public List<Event> getAllEvents(){
         return eventRepository.findAll();
+    }
+
+    @Transactional
+    public void deleteEventById(final Long id){
+        eventRepository.deleteById(id);
+    }
+
+    @Transactional
+    public List<Event> getAllBySport(Sport sport){
+        return eventRepository.findAllBySport(sport);
     }
 
 

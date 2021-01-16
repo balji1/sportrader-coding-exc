@@ -20,4 +20,9 @@ public class SportService {
     public List<Sport> getAllSportTypes(){
         return sportRepository.findAll();
     }
+
+    @Transactional
+    public Sport getByName(final String name){
+        return sportRepository.findBySportName(name);
+    }
 }
