@@ -20,7 +20,7 @@ public class TeamController {
     }
 
     @GetMapping("/all")
-    public ResponseEntity<List<Team>> getAllTeams(){
+    public ResponseEntity<List<Team>> getAllTeams() {
         return ResponseEntity.ok(teamService.getAllTeams());
     }
 }

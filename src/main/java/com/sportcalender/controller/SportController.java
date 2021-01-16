@@ -19,7 +19,7 @@ public class SportController {
     }
 
     @GetMapping("/all")
-    public ResponseEntity<List<Sport>> getAllSportTypes(){
+    public ResponseEntity<List<Sport>> getAllSportTypes() {
         return ResponseEntity.ok(sportService.getAllSportTypes());
     }
 }
