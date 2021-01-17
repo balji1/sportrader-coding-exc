@@ -20,7 +20,7 @@ export class EventService {
   }
 
   getBySport(sportName: string): Observable<any> {
-    return this.http.get(SERVER_URL + EVENT_URL + '/sport?name' + sportName);
+    return this.http.get(SERVER_URL + EVENT_URL + '/sport?name=' + sportName);
   }
 
   putEvent(event: Event): Observable<any> {

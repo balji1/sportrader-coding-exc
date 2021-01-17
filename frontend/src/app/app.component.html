@@ -7,6 +7,15 @@
   <h5>{{team.teamName}}</h5>
   <h6>{{team.sport.sportName}}</h6>
 </div>
+
+<!--<div class="sport" *ngFor="let event of events">-->
+<!--  <h5>{{event.eventName}}</h5>-->
+<!--  <h6>{{event.sport.sportName}}</h6>-->
+<!--  <h6>{{event._teamOne.teamName}}</h6>-->
+<!--  <h6>{{event._teamTwo.teamName}}</h6>-->
+<!--  <h6>{{event.date}}</h6>-->
+<!--</div>-->
+<button (click)="getEventWithSport('Football')">Get Events By Sport</button>
 <button (click)="getAllEvents()">Get Events</button>
 <div class="sport" *ngFor="let event of events">
   <h5>{{event.eventName}}</h5>
@@ -15,4 +24,3 @@
   <h6>{{event._teamTwo.teamName}}</h6>
   <h6>{{event.date}}</h6>
 </div>
-
