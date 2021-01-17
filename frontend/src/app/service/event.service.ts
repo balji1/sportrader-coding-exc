@@ -24,7 +24,7 @@ export class EventService {
   }
 
   putEvent(event: Event): Observable<any> {
-    return this.http.post(SERVER_URL + EVENT_URL + '/add', event);
+    return this.http.post<string>(SERVER_URL + EVENT_URL + '/add', event, {responseType: 'text' as 'json'});
   }
 
 }

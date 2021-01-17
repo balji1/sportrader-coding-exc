@@ -43,7 +43,7 @@ public class EventService {
 
     @Transactional
     public List<Event> getAllBySport(Sport sport){
-        return eventRepository.findAllBySport(sport);
+        return eventRepository.findAllBy_sport(sport);
     }
 
 

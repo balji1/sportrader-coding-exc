@@ -1,21 +1,28 @@
-<input [(ngModel)]="this.sportFilter" [ngbTypeahead]="sportTypeahead" placeholder="Sport Input"/>
-<button (click)="getEventWithSport(this.sportFilter)">Get Events By Sport</button>
-<button (click)="getAllEvents()">Get Events</button>
-<div class="sport" *ngFor="let event of events">
-  <h5>{{event.eventName}}</h5>
-  <h6>{{event.sport.sportName}}</h6>
-  <h6>{{event._teamOne.teamName}}</h6>
-  <h6>{{event._teamTwo.teamName}}</h6>
-  <h6>{{event.date}}</h6>
+<div class="search-bar">
+  <div class="sport-search">
+    <input [(ngModel)]="this.sportFilter" [ngbTypeahead]="sportTypeahead" placeholder="Sport Input"/>
+    <button class="btn-light" (click)="getEventWithSport(this.sportFilter)">Search</button>
+  </div>
+  <div class="all-events">
+    <button (click)="getAllEvents()">Get Events</button>
+    <div class="sport" *ngFor="let event of events">
+      <h5>{{event.eventName}}</h5>
+      <h6>{{event._sport.sportName}}</h6>
+      <h6>{{event._teamOne.teamName}} vs {{event._teamTwo.teamName}}</h6>
+      <h6>{{event.date}}</h6>
+    </div>
+  </div>
 </div>
+
+
 
 <div class="form-control">
   <form [formGroup]="eventFormControl" (ngSubmit)="submitControl()">
     <input formControlName="eventName" placeholder="Enter event name">
     <input formControlName="date" placeholder="yyyy:mm:dd">
-    <input [ngbTypeahead]="sportFilter" formControlName="sport" placeholder="Enter sport">
-    <input formControlName="_teamOne" placeholder="Team 1">
-    <input formControlName="_teamTwo" placeholder="Team 2">
+    <input [ngbTypeahead]="this.sportTypeaheadForm" formControlName="sport" placeholder="Enter sport">
+    <input [ngbTypeahead]="this.teamOneTypeaheadForm" formControlName="_teamOne" placeholder="Team 1">
+    <input [ngbTypeahead]="this.teamTwoTypeaheadForm" formControlName="_teamTwo" placeholder="Team 2">
     <button type="submit">Submit event</button>
   </form>
 </div>

@@ -29,6 +29,7 @@ export class AppComponent implements OnInit {
   sports: Sport[] = [];
   sportNames: string[] = [];
   teams: Team[] = [];
+  teamNames: string[] = [];
   sportFilter: '';
   sportTypeahead = (text$: Observable<string>) =>
     text$.pipe(
@@ -36,7 +37,28 @@ export class AppComponent implements OnInit {
       distinctUntilChanged(),
       map(term => term.length < 2 ? []
         : this.sportNames.filter(v => v.toLowerCase().indexOf(term.toLowerCase()) > -1).slice(0, 10))
-    );
+    )
+  sportTypeaheadForm = (text$: Observable<string>) =>
+    text$.pipe(
+      debounceTime(200),
+      distinctUntilChanged(),
+      map(term => term.length < 2 ? []
+        : this.sportNames.filter(v => v.toLowerCase().indexOf(term.toLowerCase()) > -1).slice(0, 10))
+    )
+  teamOneTypeaheadForm = (text$: Observable<string>) =>
+    text$.pipe(
+      debounceTime(200),
+      distinctUntilChanged(),
+      map(term => term.length < 2 ? []
+        : this.teamNames.filter(v => v.toLowerCase().indexOf(term.toLowerCase()) > -1).slice(0, 10))
+    )
+  teamTwoTypeaheadForm = (text$: Observable<string>) =>
+    text$.pipe(
+      debounceTime(200),
+      distinctUntilChanged(),
+      map(term => term.length < 2 ? []
+        : this.teamNames.filter(v => v.toLowerCase().indexOf(term.toLowerCase()) > -1).slice(0, 10))
+    )
 
   constructor(private eventService: EventService, private sportService: SportService, private teamService: TeamService) {
   }
@@ -44,6 +66,7 @@ export class AppComponent implements OnInit {
 
   ngOnInit(): void {
     this.getAllSports();
+    console.log(this.sports);
     this.getAllTeams();
   }
 
@@ -51,7 +74,6 @@ export class AppComponent implements OnInit {
     this.events = [];
     this.eventService.getAllEvents().subscribe(value => {
       value.forEach(data => {
-        console.log(data);
         this.events.push(data);
       }, error => {
         console.log('Error while retrieving events');
@@ -63,6 +85,7 @@ export class AppComponent implements OnInit {
     this.teamService.getAllTeams().subscribe(value => {
       value.forEach(data => {
         this.teams.push(data);
+        this.teamNames.push(data.teamName);
       }, error => {
         console.log('Error while retrieving teams');
       });
@@ -80,7 +103,7 @@ export class AppComponent implements OnInit {
     });
   }
 
-  public getEventWithSport(sportName: string) {
+  public getEventWithSport(sportName: string): void {
     this.events = [];
     this.eventService.getBySport(sportName).subscribe(value => {
       value.forEach(data => {
@@ -94,29 +117,44 @@ export class AppComponent implements OnInit {
   public submitControl(): void {
     const event: any = {};
     event.eventName = this.eventFormControl.value.eventName;
-    event.date = this.eventFormControl.value.date;
-    event.sport = this.eventFormControl.value.sport;
-    event._teamOne = this.eventFormControl.value._teamOne;
-    event._teamTwo = this.eventFormControl.value._teamTwo;
-    console.log(event);
+    event.date = new Date(this.eventFormControl.value.date);
+    event._sport = this.getSportByName(this.eventFormControl.value.sport);
+    event._teamOne = this.getTeamByName(this.eventFormControl.value._teamOne);
+    event._teamTwo = this.getTeamByName(this.eventFormControl.value._teamTwo);
+    this.eventService.putEvent(event).subscribe(value => {
+      console.log(value);
+    });
   }
 
-  // public addEvent() {
-  //   let team1: Team;
-  //   let team2: Team;
-  //   let sport: Sport;
-  //   this.event.eventName = 'FrontendEvent';
-  //   this.event.date = new Date();
-  //   this.event.sport = sport;
-  //   this.event.teamOne = team1;
-  //   this.event.teamTwo = team2;
-  //
-  //   this.eventService.putEvent(this.event).subscribe(value => {
-  //     console.log(value);
-  //   });
-  // }
-  // private getTeamByName(name: string){
-  //   return this.teams.forEach(value => return val)
-  // }
+
+  private getTeamByName(name: string): Team {
+    let team: Team;
+    this.teams.forEach(value => {
+      if (value.teamName === name) {
+        team = value;
+        return team;
+      }
+    });
+    if (team === undefined) {
+      console.log('Could not find team');
+    } else {
+      return team;
+    }
+  }
+
+  private getSportByName(name: string): Sport {
+    let sport: Sport;
+    this.sports.forEach(value => {
+      if (value.sportName === name) {
+        sport = value;
+        return sport;
+      }
+    });
+    if (sport === undefined) {
+      console.log('Could not find sport');
+    } else {
+      return sport;
+    }
+  }
 
 }

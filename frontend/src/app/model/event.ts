@@ -5,7 +5,7 @@ export interface Event {
   eventId: number;
   eventName: string;
   date: Date;
-  sport: Sport;
+  _sport: Sport;
   _teamOne: Team;
   _teamTwo: Team;
 }
