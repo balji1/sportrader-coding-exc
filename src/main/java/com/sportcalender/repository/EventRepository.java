@@ -13,6 +13,5 @@ import java.util.Optional;
 public interface EventRepository extends JpaRepository<Event, Long> {
     @Override
     Optional<Event> findById(Long aLong);
-    List<Event> getAllBySport(Sport sport);
-    List<Event> findAllBySport(Sport sport);
+    List<Event> findAllBy_sport(Sport sport);
 }

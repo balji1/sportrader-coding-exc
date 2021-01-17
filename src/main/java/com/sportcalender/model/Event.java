@@ -20,7 +20,7 @@ public class Event {
     private Date date;
     @OneToOne
     @JoinColumn(name = "_sport_id", referencedColumnName = "id")
-    private Sport sport;
+    private Sport _sport;
     @OneToOne
     @JoinColumn(name = "_team_one")
     private Team _teamOne;
