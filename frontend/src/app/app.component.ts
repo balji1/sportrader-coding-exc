@@ -113,6 +113,9 @@ export class AppComponent implements OnInit {
         console.log('Error while retrieving events');
       });
     });
+    if (this.sportFilter === '') {
+      this.getAllEvents();
+    }
   }
 
   public submitControl(): void {
@@ -122,10 +125,16 @@ export class AppComponent implements OnInit {
     event._sport = this.getSportByName(this.eventFormControl.value.sport);
     event._teamOne = this.getTeamByName(this.eventFormControl.value._teamOne);
     event._teamTwo = this.getTeamByName(this.eventFormControl.value._teamTwo);
+    this.putEvent(event);
+    this.getAllEvents();
+  }
+
+  private putEvent(event: Event): void {
     this.eventService.putEvent(event).subscribe(value => {
       console.log(value);
     });
   }
+
 
 
   private getTeamByName(name: string): Team {

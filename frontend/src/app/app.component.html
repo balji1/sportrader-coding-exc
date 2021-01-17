@@ -9,7 +9,7 @@
 </nav>
 
 <div class="container">
-  <h3 class="mt-2" style="font-weight: lighter">Add Event</h3>
+  <h3 class="mt-2" style="font-weight: lighter; font-size: x-large">Add Event</h3>
   <div class="form-group mt-2">
     <form [formGroup]="eventFormControl" (ngSubmit)="submitControl()">
       <div class="form-row mb-1">
@@ -41,14 +41,13 @@
           <button class="btn btn-primary" type="submit">Submit event</button>
         </div>
       </div>
-
     </form>
   </div>
 </div>
 
 <div class="container">
   <h3 class="text-center" style="font-weight: lighter">Events</h3>
-  <div class="event" *ngFor="let event of events">
+  <div class="event" *ngFor="let event of events.reverse()">
     <div class="card mb-2" style="width: auto; height: auto">
       <div class="card-body">
         <h5 class="card-title">{{event.eventName}}</h5>
