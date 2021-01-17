@@ -37,28 +37,28 @@ export class AppComponent implements OnInit {
       distinctUntilChanged(),
       map(term => term.length < 2 ? []
         : this.sportNames.filter(v => v.toLowerCase().indexOf(term.toLowerCase()) > -1).slice(0, 10))
-    )
+    );
   sportTypeaheadForm = (text$: Observable<string>) =>
     text$.pipe(
       debounceTime(200),
       distinctUntilChanged(),
       map(term => term.length < 2 ? []
         : this.sportNames.filter(v => v.toLowerCase().indexOf(term.toLowerCase()) > -1).slice(0, 10))
-    )
+    );
   teamOneTypeaheadForm = (text$: Observable<string>) =>
     text$.pipe(
       debounceTime(200),
       distinctUntilChanged(),
       map(term => term.length < 2 ? []
         : this.teamNames.filter(v => v.toLowerCase().indexOf(term.toLowerCase()) > -1).slice(0, 10))
-    )
+    );
   teamTwoTypeaheadForm = (text$: Observable<string>) =>
     text$.pipe(
       debounceTime(200),
       distinctUntilChanged(),
       map(term => term.length < 2 ? []
         : this.teamNames.filter(v => v.toLowerCase().indexOf(term.toLowerCase()) > -1).slice(0, 10))
-    )
+    );
 
   constructor(private eventService: EventService, private sportService: SportService, private teamService: TeamService) {
   }
@@ -68,6 +68,7 @@ export class AppComponent implements OnInit {
     this.getAllSports();
     console.log(this.sports);
     this.getAllTeams();
+    this.getAllEvents();
   }
 
   public getAllEvents(): void {
