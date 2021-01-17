@@ -1,21 +1,5 @@
-<button (click)="getAllSports()">Get Sports</button>
-<div class="sport" *ngFor="let sport of sports">
-  <h5>{{sport.sportName}}</h5>
-</div>
-<button (click)="getAllTeams()">Get Teams</button>
-<div class="sport" *ngFor="let team of teams">
-  <h5>{{team.teamName}}</h5>
-  <h6>{{team.sport.sportName}}</h6>
-</div>
-
-<!--<div class="sport" *ngFor="let event of events">-->
-<!--  <h5>{{event.eventName}}</h5>-->
-<!--  <h6>{{event.sport.sportName}}</h6>-->
-<!--  <h6>{{event._teamOne.teamName}}</h6>-->
-<!--  <h6>{{event._teamTwo.teamName}}</h6>-->
-<!--  <h6>{{event.date}}</h6>-->
-<!--</div>-->
-<button (click)="getEventWithSport('Football')">Get Events By Sport</button>
+<input [(ngModel)]="this.sportFilter" [ngbTypeahead]="sportTypeahead" placeholder="Sport Input"/>
+<button (click)="getEventWithSport(this.sportFilter)">Get Events By Sport</button>
 <button (click)="getAllEvents()">Get Events</button>
 <div class="sport" *ngFor="let event of events">
   <h5>{{event.eventName}}</h5>
@@ -24,3 +8,15 @@
   <h6>{{event._teamTwo.teamName}}</h6>
   <h6>{{event.date}}</h6>
 </div>
+
+<div class="form-control">
+  <form [formGroup]="eventFormControl" (ngSubmit)="submitControl()">
+    <input formControlName="eventName" placeholder="Enter event name">
+    <input formControlName="date" placeholder="yyyy:mm:dd">
+    <input [ngbTypeahead]="sportFilter" formControlName="sport" placeholder="Enter sport">
+    <input formControlName="_teamOne" placeholder="Team 1">
+    <input formControlName="_teamTwo" placeholder="Team 2">
+    <button type="submit">Submit event</button>
+  </form>
+</div>
+

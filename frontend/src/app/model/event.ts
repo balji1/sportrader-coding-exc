@@ -6,7 +6,6 @@ export interface Event {
   eventName: string;
   date: Date;
   sport: Sport;
-  teamOne: Team;
-  teamTwo: Team;
-
+  _teamOne: Team;
+  _teamTwo: Team;
 }

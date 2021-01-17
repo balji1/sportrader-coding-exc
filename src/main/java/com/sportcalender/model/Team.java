@@ -18,5 +18,5 @@ public class Team {
     private String teamName;
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "_sport_id", referencedColumnName = "id")
-    private Sport sport;
+    private Sport _sport;
 }
