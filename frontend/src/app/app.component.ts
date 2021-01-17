@@ -16,6 +16,9 @@ import {FormControl, FormGroup, Validators} from '@angular/forms';
 })
 export class AppComponent implements OnInit {
 
+  /**
+   * Form control for event
+   */
   eventFormControl = new FormGroup({
     eventName: new FormControl('', Validators.required),
     date: new FormControl('', Validators.required),
@@ -31,20 +34,30 @@ export class AppComponent implements OnInit {
   teams: Team[] = [];
   teamNames: string[] = [];
   sportFilter: '';
+
+  /**
+   * Typeahead for sport names
+   * @param text$
+   */
   sportTypeahead = (text$: Observable<string>) =>
     text$.pipe(
       debounceTime(200),
       distinctUntilChanged(),
       map(term => term.length < 2 ? []
         : this.sportNames.filter(v => v.toLowerCase().indexOf(term.toLowerCase()) > -1).slice(0, 10))
-    )
+    );
+
+  /**
+   * Typeahead for team names
+   * @param text$
+   */
   teamTypeahead = (text$: Observable<string>) =>
     text$.pipe(
       debounceTime(200),
       distinctUntilChanged(),
       map(term => term.length < 2 ? []
         : this.teamNames.filter(v => v.toLowerCase().indexOf(term.toLowerCase()) > -1).slice(0, 10))
-    )
+    );
 
 
   constructor(private eventService: EventService, private sportService: SportService, private teamService: TeamService) {
@@ -57,6 +70,9 @@ export class AppComponent implements OnInit {
     this.getAllEvents();
   }
 
+  /**
+   * Fill event array with events from backend
+   */
   public getAllEvents(): void {
     this.events = [];
     this.eventService.getAllEvents().subscribe(value => {
@@ -68,6 +84,9 @@ export class AppComponent implements OnInit {
     });
   }
 
+  /**
+   * Fill teams array with teams from backend
+   */
   public getAllTeams(): void {
     this.teamService.getAllTeams().subscribe(value => {
       value.forEach(data => {
@@ -79,6 +98,9 @@ export class AppComponent implements OnInit {
     });
   }
 
+  /**
+   * Fill sports array with teams from backend
+   */
   public getAllSports(): void {
     this.sportService.getAllSports().subscribe(value => {
       value.forEach(data => {
@@ -90,6 +112,10 @@ export class AppComponent implements OnInit {
     });
   }
 
+  /**
+   * Get events by sportName
+   * @param sportName input from user
+   */
   public getEventWithSport(sportName: string): void {
     this.events = [];
     this.eventService.getBySport(sportName).subscribe(value => {
@@ -104,6 +130,9 @@ export class AppComponent implements OnInit {
     }
   }
 
+  /**
+   * Get input from form control and execute put
+   */
   public submitControl(): void {
     const event: any = {};
     event.eventName = this.eventFormControl.value.eventName;
@@ -115,6 +144,9 @@ export class AppComponent implements OnInit {
     this.getAllEvents();
   }
 
+  /**
+   * Prefill form control with hard-coded values | for testing purpose
+   */
   public preFillValues(): void {
     this.eventFormControl.patchValue({eventName: 'New Football Event'});
     this.eventFormControl.patchValue({date: '10/10/2020 20:45'});
@@ -123,6 +155,11 @@ export class AppComponent implements OnInit {
     this.eventFormControl.patchValue({_teamTwo: 'Salzburg'});
   }
 
+  /**
+   * Send put request to backend
+   * @param event Event to be added
+   * @private
+   */
   private putEvent(event: Event): void {
     this.eventService.putEvent(event).subscribe(value => {
       // Insert additional logic
@@ -130,6 +167,11 @@ export class AppComponent implements OnInit {
   }
 
 
+  /**
+   * Return team by given team name
+   * @param name team name
+   * @private
+   */
   private getTeamByName(name: string): Team {
     let team: Team;
     this.teams.forEach(value => {
@@ -145,6 +187,11 @@ export class AppComponent implements OnInit {
     }
   }
 
+  /**
+   * Return sport by given sport name
+   * @param name sport name
+   * @private
+   */
   private getSportByName(name: string): Sport {
     let sport: Sport;
     this.sports.forEach(value => {
