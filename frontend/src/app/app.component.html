@@ -19,7 +19,7 @@
       </div>
       <div class="form-row mb-1">
         <div class="col-sm-3">
-          <input class="form-control" [ngbTypeahead]="this.sportTypeaheadForm" formControlName="sport"
+          <input class="form-control" [ngbTypeahead]="this.sportTypeahead" formControlName="sport"
                  placeholder="Enter sport">
         </div>
         <div class="col-sm-3">
@@ -28,11 +28,11 @@
       </div>
       <div class="form-row mb-1">
         <div class="col-sm-3">
-          <input class="form-control" [ngbTypeahead]="this.teamOneTypeaheadForm" formControlName="_teamOne"
+          <input class="form-control" [ngbTypeahead]="this.teamTypeahead" formControlName="_teamOne"
                  placeholder="Team 1">
         </div>
         <div class="col-sm-3">
-          <input class="form-control" [ngbTypeahead]="this.teamTwoTypeaheadForm" formControlName="_teamTwo"
+          <input class="form-control" [ngbTypeahead]="this.teamTypeahead" formControlName="_teamTwo"
                  placeholder="Team 2">
         </div>
       </div>
