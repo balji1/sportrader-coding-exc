@@ -40,6 +40,9 @@
         <div class="col-sm-3">
           <button class="btn btn-primary" type="submit">Submit event</button>
         </div>
+        <div class="col-sm-3">
+          <button class="btn btn-light" (click)="this.preFillValues(); $event.preventDefault()">Pre-fill values</button>
+        </div>
       </div>
     </form>
   </div>

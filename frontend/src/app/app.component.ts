@@ -129,9 +129,17 @@ export class AppComponent implements OnInit {
     this.getAllEvents();
   }
 
+  public preFillValues(): void {
+    this.eventFormControl.patchValue({eventName: 'New Football Event'});
+    this.eventFormControl.patchValue({date: '10/10/2020 20:45'});
+    this.eventFormControl.patchValue({sport: 'Football'});
+    this.eventFormControl.patchValue({_teamOne: 'Sturm'});
+    this.eventFormControl.patchValue({_teamTwo: 'Salzburg'});
+  }
+
   private putEvent(event: Event): void {
     this.eventService.putEvent(event).subscribe(value => {
-      console.log(value);
+      // Insert additional logic
     });
   }
 
