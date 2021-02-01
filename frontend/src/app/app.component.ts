@@ -44,6 +44,7 @@ export class AppComponent implements OnInit {
     this.childEvent = $event;
     this.putEvent(this.childEvent);
     this.getAllEvents();
+    window.location.reload();
   }
 
   /**
