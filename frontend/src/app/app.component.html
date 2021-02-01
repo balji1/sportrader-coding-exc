@@ -1,12 +1,4 @@
-<nav class="navbar navbar-light bg-primary">
-  <a class="navbar-brand" href="#" style="color: white">Sport Calender</a>
-  <form class="form-inline my-2 my-lg-0">
-    <input name="searchSport" [(ngModel)]="this.sportFilter" [ngbTypeahead]="sportTypeahead"
-           class="form-control mr-sm-2" placeholder="Enter sport">
-    <button class="btn btn-primary my-2 my-sm-0" type="submit" (click)="getEventWithSport(this.sportFilter)">Search
-    </button>
-  </form>
-</nav>
+<app-navbar [sportArr]="this.sportNames" (emmitSportFilter)="getSportFilter($event)"></app-navbar>
 
 <div class="container">
   <h3 class="mt-2" style="font-weight: lighter; font-size: x-large">Add Event</h3>
@@ -48,19 +40,7 @@
   </div>
 </div>
 
-<div class="container">
-  <h3 class="text-center" style="font-weight: lighter">Events</h3>
-  <div class="event" *ngFor="let event of events.reverse()">
-    <div class="card mb-2" style="width: auto; height: auto">
-      <div class="card-body">
-        <h5 class="card-title">{{event.eventName}}</h5>
-        <h6 class="card-subtitle">{{event._sport.sportName}}</h6>
-        <p class="cart-text">{{event._teamOne.teamName}} vs {{event._teamTwo.teamName}}</p>
-        <p class="cart-text">{{event.date | date:'short'}}</p>
-      </div>
-    </div>
-  </div>
-</div>
+<app-eventcard [events]="this.events"></app-eventcard>
 
 
 

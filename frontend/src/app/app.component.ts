@@ -70,6 +70,11 @@ export class AppComponent implements OnInit {
     this.getAllEvents();
   }
 
+  public getSportFilter($event): void{
+    this.sportFilter = $event;
+    this.getEventWithSport(this.sportFilter);
+  }
+
   /**
    * Fill event array with events from backend
    */
@@ -116,7 +121,7 @@ export class AppComponent implements OnInit {
    * Get events by sportName
    * @param sportName input from user
    */
-  public getEventWithSport(sportName: string): void {
+  private getEventWithSport(sportName: string): void {
     this.events = [];
     this.eventService.getBySport(sportName).subscribe(value => {
       value.forEach(data => {
