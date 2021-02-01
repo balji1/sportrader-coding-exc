@@ -1,46 +1,9 @@
 <app-navbar [sportArr]="this.sportNames" (emmitSportFilter)="getSportFilter($event)"></app-navbar>
 
-<div class="container">
-  <h3 class="mt-2" style="font-weight: lighter; font-size: x-large">Add Event</h3>
-  <div class="form-group mt-2">
-    <form [formGroup]="eventFormControl" (ngSubmit)="submitControl()">
-      <div class="form-row mb-1">
-        <div class="col-sm-6">
-          <input class="form-control" formControlName="eventName" placeholder="Enter event name">
-        </div>
-      </div>
-      <div class="form-row mb-1">
-        <div class="col-sm-3">
-          <input class="form-control" [ngbTypeahead]="this.sportTypeahead" formControlName="sport"
-                 placeholder="Enter sport">
-        </div>
-        <div class="col-sm-3">
-          <input class="form-control" formControlName="date" placeholder="Date: dd/mm/yyyy HH:MM">
-        </div>
-      </div>
-      <div class="form-row mb-1">
-        <div class="col-sm-3">
-          <input class="form-control" [ngbTypeahead]="this.teamTypeahead" formControlName="_teamOne"
-                 placeholder="Team 1">
-        </div>
-        <div class="col-sm-3">
-          <input class="form-control" [ngbTypeahead]="this.teamTypeahead" formControlName="_teamTwo"
-                 placeholder="Team 2">
-        </div>
-      </div>
-      <div class="form-row mb-1">
-        <div class="col-sm-3">
-          <button class="btn btn-primary" type="submit">Submit event</button>
-        </div>
-        <div class="col-sm-3">
-          <button class="btn btn-light" (click)="this.preFillValues(); $event.preventDefault()">Pre-fill values</button>
-        </div>
-      </div>
-    </form>
-  </div>
-</div>
+<app-event-form-control [sportNames]="sportNames" [teamNames]="teamNames" [teams]="teams" [sports]="sports"
+                        (eventOutput)="getEventFromFormControl($event)"></app-event-form-control>
 
-<app-eventcard [events]="this.events"></app-eventcard>
+<app-event-card [events]="this.events"></app-event-card>
 
 
 

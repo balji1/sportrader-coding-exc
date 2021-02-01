@@ -16,17 +16,6 @@ import {FormControl, FormGroup, Validators} from '@angular/forms';
 })
 export class AppComponent implements OnInit {
 
-  /**
-   * Form control for event
-   */
-  eventFormControl = new FormGroup({
-    eventName: new FormControl('', Validators.required),
-    date: new FormControl('', Validators.required),
-    sport: new FormControl('', Validators.required),
-    _teamOne: new FormControl('', Validators.required),
-    _teamTwo: new FormControl('', Validators.required)
-  });
-
   title = 'frontend';
   events: Event[] = [];
   sports: Sport[] = [];
@@ -34,31 +23,7 @@ export class AppComponent implements OnInit {
   teams: Team[] = [];
   teamNames: string[] = [];
   sportFilter: '';
-
-  /**
-   * Typeahead for sport names
-   * @param text$
-   */
-  sportTypeahead = (text$: Observable<string>) =>
-    text$.pipe(
-      debounceTime(200),
-      distinctUntilChanged(),
-      map(term => term.length < 2 ? []
-        : this.sportNames.filter(v => v.toLowerCase().indexOf(term.toLowerCase()) > -1).slice(0, 10))
-    );
-
-  /**
-   * Typeahead for team names
-   * @param text$
-   */
-  teamTypeahead = (text$: Observable<string>) =>
-    text$.pipe(
-      debounceTime(200),
-      distinctUntilChanged(),
-      map(term => term.length < 2 ? []
-        : this.teamNames.filter(v => v.toLowerCase().indexOf(term.toLowerCase()) > -1).slice(0, 10))
-    );
-
+  childEvent: Event;
 
   constructor(private eventService: EventService, private sportService: SportService, private teamService: TeamService) {
   }
@@ -70,9 +35,15 @@ export class AppComponent implements OnInit {
     this.getAllEvents();
   }
 
-  public getSportFilter($event): void{
+  public getSportFilter($event): void {
     this.sportFilter = $event;
     this.getEventWithSport(this.sportFilter);
+  }
+
+  public getEventFromFormControl($event): void {
+    this.childEvent = $event;
+    this.putEvent(this.childEvent);
+    this.getAllEvents();
   }
 
   /**
@@ -135,30 +106,6 @@ export class AppComponent implements OnInit {
     }
   }
 
-  /**
-   * Get input from form control and execute put
-   */
-  public submitControl(): void {
-    const event: any = {};
-    event.eventName = this.eventFormControl.value.eventName;
-    event.date = new Date(this.eventFormControl.value.date);
-    event._sport = this.getSportByName(this.eventFormControl.value.sport);
-    event._teamOne = this.getTeamByName(this.eventFormControl.value._teamOne);
-    event._teamTwo = this.getTeamByName(this.eventFormControl.value._teamTwo);
-    this.putEvent(event);
-    this.getAllEvents();
-  }
-
-  /**
-   * Prefill form control with hard-coded values | for testing purpose
-   */
-  public preFillValues(): void {
-    this.eventFormControl.patchValue({eventName: 'New Football Event'});
-    this.eventFormControl.patchValue({date: '10/10/2020 20:45'});
-    this.eventFormControl.patchValue({sport: 'Football'});
-    this.eventFormControl.patchValue({_teamOne: 'Sturm'});
-    this.eventFormControl.patchValue({_teamTwo: 'Salzburg'});
-  }
 
   /**
    * Send put request to backend
@@ -169,47 +116,6 @@ export class AppComponent implements OnInit {
     this.eventService.putEvent(event).subscribe(value => {
       // Insert additional logic
     });
-  }
-
-
-  /**
-   * Return team by given team name
-   * @param name team name
-   * @private
-   */
-  private getTeamByName(name: string): Team {
-    let team: Team;
-    this.teams.forEach(value => {
-      if (value.teamName === name) {
-        team = value;
-        return team;
-      }
-    });
-    if (team === undefined) {
-      console.log('Could not find team');
-    } else {
-      return team;
-    }
-  }
-
-  /**
-   * Return sport by given sport name
-   * @param name sport name
-   * @private
-   */
-  private getSportByName(name: string): Sport {
-    let sport: Sport;
-    this.sports.forEach(value => {
-      if (value.sportName === name) {
-        sport = value;
-        return sport;
-      }
-    });
-    if (sport === undefined) {
-      console.log('Could not find sport');
-    } else {
-      return sport;
-    }
   }
 
 }

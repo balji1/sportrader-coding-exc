@@ -6,13 +6,15 @@ import {HttpClient, HttpClientModule} from '@angular/common/http';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NavbarComponent } from './Comp/navbar/navbar.component';
-import { EventcardComponent } from './Comp/eventcard/eventcard.component';
+import { EventCardComponent } from './Comp/event-card/event-card.component';
+import { EventFormControlComponent } from './Comp/event-form-control/event-form-control.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     NavbarComponent,
-    EventcardComponent
+    EventCardComponent,
+    EventFormControlComponent
   ],
   imports: [
     BrowserModule,
