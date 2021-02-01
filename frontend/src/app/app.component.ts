@@ -35,11 +35,19 @@ export class AppComponent implements OnInit {
     this.getAllEvents();
   }
 
+  /**
+   * Get search value from child component and display items
+   * @param $event sport filter as string
+   */
   public getSportFilter($event): void {
     this.sportFilter = $event;
     this.getEventWithSport(this.sportFilter);
   }
 
+  /**
+   * Get the event from child component and send to database
+   * @param $event event from child component
+   */
   public getEventFromFormControl($event): void {
     this.childEvent = $event;
     this.putEvent(this.childEvent);
